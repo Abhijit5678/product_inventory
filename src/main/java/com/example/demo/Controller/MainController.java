@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,32 +10,28 @@ import com.example.demo.service.ProductService;
 
 @RestController
 public class MainController {
-	
-	
-	@Autowired
-	ProductService productservice;
-	
-	
+
+	private final ProductService productService;
+
+	public MainController(ProductService productService) {
+		this.productService = productService;
+	}
+
 	@GetMapping("/fetchAllProduct")
-	public List<Product> fetchProduct()
-	{
-		
-		List<Product> result= productservice.getAllProduct();
+	public List<Product> fetchProduct() {
+
+		List<Product> result = productService.getAllProduct();
 		System.out.println(result);
 		return result;
-		
-	}
-	@GetMapping("/getAvailableProductNames")
-	public List<String> listString()
-	{
-		List<Product> fetchProduct = fetchProduct();
-		List<String> names=productservice.getAvailableProductNames(fetchProduct);
-		return names;
-		
-	}
-	
-	
-	
 
-	
+	}
+
+	@GetMapping("/getInStockProductNamesSortedByPrice")
+	public List<String> listString() {
+		List<Product> fetchProduct = productService.getAllProduct();
+		List<String> names = productService.getAvailableProductNames(fetchProduct);
+		return names;
+
+	}
+
 }
