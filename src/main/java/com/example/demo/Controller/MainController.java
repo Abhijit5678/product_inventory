@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +34,15 @@ public class MainController {
 		return names;
 
 	}
+	@GetMapping("/getProductUsingSupplyId")
+	public Map<Integer, List<Map<String, Object>>> getdetails()
+	{
+		List<Map<String, Object>> dataa = productService.dataa();
+		
+		Map<Integer, List<Map<String, Object>>> result=productService.getallformatdetails(dataa);
+		return result;
+		
+	}
+	
 
 }
